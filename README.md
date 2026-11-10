@@ -4,6 +4,10 @@
 
 Track: **Livelihood for the Uneducated** (benefits access) · Code for a Billion - Bharat Agentic-AI Hackathon 2026
 
+## Live demo
+
+**https://pritahi.github.io/schemesathi/** - no install, no signup, works on any phone browser. Try the demo personas (see PILOT.md) or speak in Hindi/Hinglish.
+
 ## The problem (size & severity)
 
 India runs thousands of welfare schemes - scholarships, pensions, crop support, housing, health cover. The people they exist for - informal workers, low-literacy families - mostly do not know which ones they qualify for, because discovery itself needs English, literacy, and a computer.
@@ -29,7 +33,7 @@ api/chat.js               OPTIONAL LLM language adapter (AgentFoundry smart-code
 tests/engine.test.js      rules engine test suite (node tests/engine.test.js)
 ```
 
-No build step, no backend required for the core product - it runs offline on a ₹8,000 phone. Built in the **AgentFoundry IDE** with smart-code tokens (Code for a Billion hackathon requirement).
+No build step, no backend required for the core product - it runs offline on a ₹8,000 phone. Built in the **AgentFoundry IDE** with smart-code tokens (Code for a Billion hackathon requirement) - the `.codenow/` project folder is kept in this repo deliberately as AgentFoundry provenance.
 
 ## Proven impact
 
