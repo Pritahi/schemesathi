@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0b5e3b">
+<title>SchemeSathi - आपकी योजनाएँ, आपकी भाषा में</title>
+<link rel="manifest" href="manifest.json">
+<style>
+:root { --green:#0b5e3b; --green2:#128a55; --bg:#f6f7f4; --card:#fff; --ink:#182420; --mut:#5b6b62; --acc:#f5a623; }
+* { box-sizing:border-box; margin:0; padding:0; font-family:system-ui,-apple-system,"Noto Sans Devanagari",sans-serif; }
+body { background:var(--bg); color:var(--ink); }
+header { background:var(--green); color:#fff; padding:14px 16px; position:sticky; top:0; z-index:5; }
+header h1 { font-size:1.15rem; } header p { font-size:.8rem; opacity:.85; }
+main { max-width:640px; margin:0 auto; padding:14px; }
+.card { background:var(--card); border-radius:14px; padding:16px; margin-bottom:14px; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+.q { font-size:1.05rem; font-weight:600; margin-bottom:10px; }
+.chips { display:flex; flex-wrap:wrap; gap:8px; }
+.chip { border:1.5px solid var(--green2); color:var(--green2); border-radius:999px; padding:8px 14px; font-size:.95rem; background:#fff; }
+.chip.on { background:var(--green2); color:#fff; }
+input[type=number], select { width:100%; padding:12px; font-size:1rem; border:1.5px solid #ccd6cf; border-radius:10px; background:#fff; }
+.btn { display:block; width:100%; padding:14px; border:none; border-radius:12px; background:var(--green); color:#fff; font-size:1.05rem; font-weight:700; margin-top:6px; }
+.btn.ghost { background:#fff; color:var(--green); border:1.5px solid var(--green); }
+.btn.mic { background:var(--acc); color:#3a2a00; }
+.scheme h3 { font-size:1.05rem; color:var(--green); }
+.scheme .ben { font-size:1rem; font-weight:600; margin:6px 0; }
+.scheme .why { font-size:.9rem; color:var(--mut); margin-bottom:8px; }
+.scheme ul { margin:6px 0 10px 18px; font-size:.92rem; }
+.scheme a { color:var(--green2); font-weight:600; }
+.tag { display:inline-block; background:#e7f3ec; color:var(--green); font-size:.72rem; border-radius:6px; padding:2px 8px; margin-left:6px; }
+.summary { background:#eaf6ef; border-left:4px solid var(--green2); }
+.hidden { display:none; }
+footer { text-align:center; color:var(--mut); font-size:.75rem; padding:18px; }
+.step { font-size:.8rem; color:var(--mut); margin-bottom:6px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🙏 SchemeSathi</h1>
+  <p>सरकारी योजनाएँ - आपकी भाषा में, आपके फ़ोन पर</p>
+</header>
+<main>
+  <div class="card" id="card-voice">
+    <div class="q">बोलकर या छूकर बताइए - आप कौन हैं?</div>
+    <p class="step">जैसे: "मैं 52 साल का मज़दूर हूँ, गुजरात से"</p>
+    <button class="btn mic" id="btn-mic">🎤 बोलिए (Hindi/ગુજરાતી)</button>
+    <div class="step" id="heard" style="margin-top:8px"></div>
+    <button class="btn ghost" id="btn-manual">या नीचे छूकर भरिए 👇</button>
+  </div>
+
+  <div class="card hidden" id="card-form">
+    <div class="q">आपकी जानकारी</div>
+    <p class="step">उम्र</p>
+    <input type="number" id="f-age" min="1" max="100" placeholder="जैसे 52">
+    <p class="step" style="margin-top:10px">लिंग</p>
+    <div class="chips" data-f="gender">
+      <button class="chip" data-v="male">पुरुष</button>
+      <button class="chip" data-v="female">महिला</button>
+      <button class="chip" data-v="other">अन्य</button>
+    </div>
+    <p class="step" style="margin-top:10px">राज्य</p>
+    <select id="f-state">
+      <option value="gujarat">गुजरात</option>
+      <option value="other">अन्य राज्य</option>
+    </select>
+    <p class="step" style="margin-top:10px">काम</p>
+    <div class="chips" data-f="occupation">
+      <button class="chip" data-v="farmer">किसान</button>
+      <button class="chip" data-v="labour">मज़दूर</button>
+      <button class="chip" data-v="vendor">रेहड़ी/दुकान</button>
+      <button class="chip" data-v="artisan">कारीगर</button>
+      <button class="chip" data-v="student">छात्र/छात्रा</button>
+      <button class="chip" data-v="driver">ड्राइवर</button>
+      <button class="chip" data-v="domestic">घरेलू काम</button>
+      <button class="chip" data-v="any">अन्य</button>
+    </div>
+    <p class="step" style="margin-top:10px">सालाना आय</p>
+    <div class="chips" data-f="income">
+      <button class="chip" data-v="100000">₹1 लाख तक</button>
+      <button class="chip" data-v="250000">₹2.5 लाख तक</button>
+      <button class="chip" data-v="600000">₹6 लाख तक</button>
+      <button class="chip" data-v="99999999">₹6 लाख से ज़्यादा</button>
+    </div>
+    <p class="step" style="margin-top:10px">वर्ग</p>
+    <div class="chips" data-f="category">
+      <button class="chip" data-v="general">सामान्य</button>
+      <button class="chip" data-v="obc">OBC</button>
+      <button class="chip" data-v="sc">SC</button>
+      <button class="chip" data-v="st">ST</button>
+    </div>
+    <p class="step" style="margin-top:10px">BPL / राशन कार्ड?</p>
+    <div class="chips" data-f="bpl">
+      <button class="chip" data-v="yes">हाँ</button>
+      <button class="chip" data-v="no">नहीं</button>
+    </div>
+    <p class="step" style="margin-top:10px">बैंक खाता?</p>
+    <div class="chips" data-f="bank_account">
+      <button class="chip" data-v="yes">हाँ</button>
+      <button class="chip" data-v="no">नहीं</button>
+    </div>
+    <p class="step" style="margin-top:10px">कहाँ रहते हैं?</p>
+    <div class="chips" data-f="area">
+      <button class="chip" data-v="rural">गाँव</button>
+      <button class="chip" data-v="urban">शहर</button>
+    </div>
+    <p class="step" style="margin-top:10px">घर कैसा है?</p>
+    <div class="chips" data-f="housing">
+      <button class="chip" data-v="pucca">पक्का</button>
+      <button class="chip" data-v="kutcha">कच्चा</button>
+      <button class="chip" data-v="none">घर नहीं</button>
+    </div>
+    <button class="btn" id="btn-find">मेरी योजनाएँ दिखाएँ</button>
+  </div>
+
+  <div id="results"></div>
+
+  <div class="card hidden" id="card-helper">
+    <button class="btn ghost" id="btn-helper-save">💾 यह रिपोर्ट सहेजें (Helper Mode)</button>
+    <button class="btn ghost" id="btn-share">📤 WhatsApp पर भेजें</button>
+  </div>
+  <div class="card hidden" id="card-queue">
+    <div class="q">सहेजी गई रिपोर्टें (Helper Mode)</div>
+    <div id="queue-list"></div>
+  </div>
+  <footer>
+    SchemeSathi - Code for a Billion Hackathon 2026 · खुला स्रोत (MIT)<br>
+    योजना नियम आधिकारिक स्रोतों से · अंतिम पात्रता विभाग तय करता है
+  </footer>
+</main>
+<script src="engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

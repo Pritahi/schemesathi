@@ -1,0 +1,10 @@
+{
+  "name": "SchemeSathi",
+  "short_name": "SchemeSathi",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f6f7f4",
+  "theme_color": "#0b5e3b",
+  "description": "सरकारी योजनाएँ - आपकी भाषा में",
+  "icons": []
+}
